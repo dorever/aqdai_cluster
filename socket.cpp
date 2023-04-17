@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SockLx.h"
+#include "socket.h"
 #ifdef _WIN32
 #pragma comment (lib,"ws2_32.lib")
 #endif
