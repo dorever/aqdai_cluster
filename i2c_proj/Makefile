@@ -19,4 +19,4 @@ clean:
 	@rm -rf $(BUILD_DIR)
 	@rm -rf $(PWD)/*.ko
 
-obj-m := i2c_device.o i2c_driver.o
+obj-m := i2c_char_dev_driver.o i2c_driver.o
