@@ -11,6 +11,8 @@
 #include <linux/delay.h>
 #include <linux/dmi.h>
 #include <linux/kobject.h>
+#include <linux/cdev.h>
+#include <linux/fs.h>
 
 #include "i2c_device.h"
 
@@ -38,6 +40,7 @@ static int abcd_char_dev_open(struct inode *inde, struct file *filp)
 static int abcd_char_dev_release(struct inode *inde, struct file *filp) 
 {
     struct abcd_char_dev_dev *dev = (struct abcd_char_dev_dev *)filp->private_data;
+    (void)dev;
     printk(KERN_INFO "abcd_char_dev_release\r\n");
     return 0;
 }
@@ -51,6 +54,7 @@ static ssize_t abcd_char_dev_read(struct file *filp, char __user *buf, size_t co
 static ssize_t abcd_char_dev_write(struct file *filp, const char __user *buf, size_t count, loff_t *ppos) 
 {
     struct abcd_char_dev_dev *dev = (struct abcd_char_dev_dev *)filp->private_data;
+    (void)dev;
     printk(KERN_INFO "abcd_char_dev_write\r\n");
     return 0;
 }
@@ -93,7 +97,7 @@ static int abcd_char_dev_probe(struct i2c_client *client, const struct i2c_devic
     printk(KERN_INFO "abcd_char_dev major = %d, minor = %d \r\n", abcd_char_dev.major, abcd_char_dev.minor);  
 
     cdev_init(&abcd_char_dev.cdev, &abcd_char_dev_fops);
-    
+
     ret = cdev_add(&abcd_char_dev.cdev, abcd_char_dev.devid, abcd_char_dev.count);
     if(ret < 0) 
     {
@@ -136,12 +140,12 @@ static int abcd_char_dev_remove(struct i2c_client *client)
 }
 
 static const struct i2c_device_id abcd_char_dev_id[] = {
-    {"alientek,abcd_char_dev", 0},
+    {"abcd_char_dev", 0},
     {}
 };
 
 static const struct of_device_id abcd_char_dev_of_match[] = {
-    { .compatible = "alientek, abcd_char_dev" },
+    { .compatible = "abcd_char_dev" },
     {}
 };
 
