@@ -19,4 +19,7 @@ clean:
 	@rm -rf $(BUILD_DIR)
 	@rm -rf $(PWD)/*.ko
 
-obj-m := i2c_char_dev_driver.o i2c_driver.o
+obj-m += i2c_char_dev_driver.o 
+obj-m += i2c_board_info_driver.o
+obj-m += i2c_base_driver.o
+obj-m += i2c_attr_driver.o
